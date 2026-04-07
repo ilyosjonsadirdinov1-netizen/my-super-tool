@@ -3,89 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SuperTool - Video Yuklovchi & Onlayn Instrumentlar</title>
-    <meta name="description" content="TikTok, Instagram va YouTube videolarini suv belgisiz bepul yuklang. Eng tezkor onlayn yuklovchi xizmati.">
+    <title>SuperTool - Video Yuklovchi</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-    </style>
 </head>
-<body class="bg-gray-100 font-sans">
+<body class="bg-slate-900 text-white font-sans flex items-center justify-center min-h-screen p-4">
 
-    <header class="gradient-bg text-white p-10 text-center shadow-lg">
-        <h1 class="text-4xl font-bold mb-2">🚀 SuperTool Uz</h1>
-        <p class="text-lg opacity-90">TikTok va Instagram videolarini bir zumda yuklang!</p>
-    </header>
-
-    <main class="max-w-4xl mx-auto p-6 -mt-10">
-        <div class="bg-white rounded-2xl shadow-2xl p-8 mb-10">
-            <div class="flex flex-col space-y-4">
-                <label class="text-gray-700 font-semibold">Video linkini joylang:</label>
-                <div class="flex flex-col sm:flex-row gap-2">
-                    <input type="text" id="urlInput" placeholder="https://..." 
-                           class="flex-1 p-4 border-2 border-purple-200 rounded-xl focus:outline-none focus:border-purple-500 transition text-black">
-                    <button onclick="processVideo()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-4 px-8 rounded-xl transition transform hover:scale-105 active:scale-95">
-                        Yuklash ⚡️
-                    </button>
-                </div>
-                <div id="status" class="text-center mt-4 font-semibold min-h-[40px]"></div>
-            </div>
+    <div class="max-w-md w-full bg-slate-800 p-8 rounded-3xl shadow-2xl border border-slate-700">
+        <h1 class="text-3xl font-bold text-center mb-6 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+            SuperTool Uz
+        </h1>
+        
+        <div class="space-y-4">
+            <input type="text" id="urlInput" placeholder="Instagram yoki TikTok linki..." 
+                   class="w-full p-4 rounded-xl bg-slate-700 border border-slate-600 focus:outline-none focus:border-cyan-500 transition text-white">
+            
+            <button onclick="downloadVideo()" id="btn" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-4 rounded-xl transition duration-300 shadow-lg">
+                Yuklash ⚡️
+            </button>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-700">
-            <section class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-purple-500">
-                <h2 class="font-bold text-xl mb-2">TikTok Suv belgisiz yuklash</h2>
-                <p class="text-sm leading-relaxed">SuperTool orqali TikTok videolarini hech qanday logotipsiz (watermark) yuklab olishingiz mumkin. Bu mutlaqo bepul va juda tez ishlaydi.</p>
-            </section>
-
-            <section class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-purple-500">
-                <h2 class="font-bold text-xl mb-2">Instagram Reels Downloader</h2>
-                <p class="text-sm leading-relaxed">Instagram Reels va post videolarini sifatli formatda saqlab oling. Shunchaki linkni joylang va natijadan bahra oling.</p>
-            </section>
-
-            <section class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-purple-500">
-                <h2 class="font-bold text-xl mb-2">Nega bizning xizmat?</h2>
-                <p class="text-sm leading-relaxed">Biz foydalanuvchi ma'lumotlarini saqlamaymiz. Saytimiz 2026-yilning eng xavfsiz va tezkor yuklovchi platformasi hisoblanadi.</p>
-            </section>
-
-            <section class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-purple-500">
-                <h2 class="font-bold text-xl mb-2">Tezkor Yuklash</h2>
-                <p class="text-sm leading-relaxed">Serverlarimiz video havolasini soniyalar ichida tahlil qiladi va sizga eng yuqori sifatli yuklash linkini taqdim etadi.</p>
-            </section>
+        <div id="result" class="mt-6 text-center"></div>
+        
+        <div class="mt-8 text-xs text-slate-500 text-center leading-relaxed">
+            <p class="mb-2">✅ Instagram Reels va TikTok videolarni yuklash.</p>
+            <p>Google AdSense uchun maqola: Bizning servisimiz orqali siz ijtimoiy tarmoqlardagi videolarni sifatli va tezkor yuklab olishingiz mumkin. Bu 2026-yilning eng foydali instrumenti.</p>
         </div>
-    </main>
-
-    <footer class="text-center p-10 text-gray-500 text-sm">
-        &copy; 2026 SuperTool Uz. Barcha huquqlar himoyalangan.
-    </footer>
+    </div>
 
     <script>
-        async function processVideo() {
-        const url = document.getElementById('urlInput').value;
-        const status = document.getElementById('status');
-        
-        if(!url) {
-            status.innerHTML = "<span class='text-red-500'>⚠️ Linkni kiriting!</span>";
-            return;
-        }
-        
-        status.innerHTML = "<span class='text-blue-500 italic'>⏳ Tahlil qilinmoqda...</span>";
-        
-        try {
-            // Yangilangan va barqaror API
-            const response = await fetch(https://api.vkr.com/api/v1/get?url=${encodeURIComponent(url)});
-            const data = await response.json();
-            
-            // Agar birinchi API ishlamasa, zaxira (backup) usuli
-            if(data && data.url) {
-                status.innerHTML = <a href="${data.url}" target="_blank" download class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-lg shadow-md transition">✅ Videoni Yuklab Olish</a>;
-            } else if (data && data.data && data.data.url) {
-                status.innerHTML = <a href="${data.data.url}" target="_blank" download class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-lg shadow-md transition">✅ Videoni Yuklab Olish</a>;
-            } else {
-                status.innerHTML = "<span class='text-orange-500'>❌ Video topilmadi. Linkni tekshiring yoki boshqa video bilan urinib ko'ring.</span>";
+        async function downloadVideo() {
+            const url = document.getElementById('urlInput').value;
+            const resDiv = document.getElementById('result');
+            const btn = document.getElementById('btn');
+
+            if(!url) {
+                resDiv.innerHTML = "<p class='text-red-400'>Linkni kiriting!</p>";
+                return;
             }
-        } catch (e) {
-            status.innerHTML = "<span class='text-red-500'>⚠️ Serverda xatolik. Iltimos, keyinroq urinib ko'ring.</span>";
+
+            btn.disabled = true;
+            btn.innerText = "Qidirilmoqda...";
+            resDiv.innerHTML = "<div class='animate-spin inline-block w-6 h-6 border-4 border-cyan-500 border-t-transparent rounded-full'></div>";
+
+            try {
+                // Bu dunyodagi eng barqaror bepul API'lardan biri
+                const response = await fetch(https://api.vkr.com/api/v1/get?url=${encodeURIComponent(url)});
+                const data = await response.json();
+
+                if (data && data.url) {
+                    resDiv.innerHTML = <a href="${data.url}" target="_blank" class="block bg-green-500 hover:bg-green-400 text-white font-bold py-3 rounded-xl transition shadow-lg">✅ Tayyor! Yuklab olish</a>;
+                } else {
+                    resDiv.innerHTML = "<p class='text-orange-400'>Video topilmadi. Boshqa link sinab ko'ring.</p>";
+                }
+            } catch (e) {
+                resDiv.innerHTML = "<p class='text-red-400'>Xatolik: Server javob bermadi.</p>";
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Yuklash ⚡️";
+            }
         }
-    }
-          status.innerHTML = "<span class='text-red-500'>⚠️ Linkni kiriting!</span>";
+    </script>
+</body>
+</html>
