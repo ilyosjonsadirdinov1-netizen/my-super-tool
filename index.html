@@ -3,122 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sog'liq Portali - BMI va Kaloriya Kalkulyatori</title>
+    <title>SuperTool Uz - Sog'liq Portali</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .page { display: none; }
         .active-page { display: block; }
-        .active-tab { border-bottom: 3px solid #10b981; color: #10b981; }
+        .active-tab { border-bottom: 4px solid #0ea5e9; color: #0ea5e9; transform: translateY(-2px); }
+        .card-grad { background: linear-gradient(145deg, #ffffff, #f0f9ff); }
     </style>
 </head>
 <body class="bg-slate-50 font-sans min-h-screen text-slate-800">
 
-    <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="max-w-4xl mx-auto flex justify-around p-4 font-bold text-sm uppercase tracking-wider">
-            <button onclick="showPage('bmi')" id="bmi-btn" class="active-tab pb-2">BMI Hisoblash</button>
-            <button onclick="showPage('calories')" id="cal-btn" class="pb-2 text-slate-400">Kaloriya</button>
-            <button onclick="showPage('info')" id="info-btn" class="pb-2 text-slate-400">Maqolalar</button>
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto flex justify-around p-4 font-bold text-[10px] sm:text-xs uppercase tracking-tighter sm:tracking-widest">
+            <button onclick="showPage('bmi')" id="bmi-btn" class="active-tab pb-2 transition-all">BMI</button>
+            <button onclick="showPage('calories')" id="cal-btn" class="pb-2 text-slate-400 transition-all">Kaloriya</button>
+            <button onclick="showPage('water')" id="water-btn" class="pb-2 text-slate-400 transition-all">Suv Tartibi</button>
+            <button onclick="showPage('info')" id="info-btn" class="pb-2 text-slate-400 transition-all">Maqolalar</button>
         </div>
     </nav>
 
-    <main class="max-w-4xl mx-auto p-6 mt-4">
+    <main class="max-w-4xl mx-auto p-4 sm:p-6 mt-4">
 
         <div id="bmi-page" class="page active-page">
-            <div class="bg-white p-8 rounded-3xl shadow-xl border border-emerald-100 max-w-md mx-auto">
-                <h1 class="text-2xl font-bold text-emerald-700 text-center mb-6">Tana Vazni Indeksi (BMI)</h1>
+            <div class="card-grad p-8 rounded-[2rem] shadow-xl border border-blue-50 max-w-md mx-auto">
+                <h1 class="text-2xl font-black text-blue-600 text-center mb-6 italic">BMI CALCULATOR</h1>
                 <div class="space-y-4">
-                    <input type="number" id="h-bmi" placeholder="Bo'yingiz (sm)" class="w-full p-4 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 outline-none">
-                    <input type="number" id="w-bmi" placeholder="Vazningiz (kg)" class="w-full p-4 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-500 outline-none text-black">
-                    <button onclick="calcBMI()" class="w-full bg-emerald-600 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-emerald-700 transition">HISОBLASH 📊</button>
+                    <input type="number" id="h-bmi" placeholder="Bo'yingiz (sm)" class="w-full p-4 rounded-2xl border border-slate-200 outline-none focus:ring-2 focus:ring-blue-400 transition">
+                    <input type="number" id="w-bmi" placeholder="Vazningiz (kg)" class="w-full p-4 rounded-2xl border border-slate-200 outline-none focus:ring-2 focus:ring-blue-400 transition text-black">
+                    <button onclick="calcBMI()" class="w-full bg-blue-600 text-white font-black py-4 rounded-2xl shadow-lg hover:bg-blue-700 transition transform active:scale-95">HISОBLASH 📊</button>
                 </div>
-                <div id="res-bmi" class="mt-6 text-center hidden p-4 bg-emerald-50 rounded-2xl">
-                    <div class="text-4xl font-black text-emerald-600" id="val-bmi">0</div>
-                    <div class="text-lg font-bold" id="status-bmi">Holat</div>
+                <div id="res-bmi" class="mt-6 text-center hidden p-6 bg-white rounded-3xl shadow-inner">
+                    <div class="text-5xl font-black text-blue-600" id="val-bmi">0</div>
+                    <div class="text-xl font-bold mt-2" id="status-bmi">Holat</div>
                 </div>
             </div>
         </div>
 
-        <div id="calories-page" class="page">
-            <div class="bg-white p-8 rounded-3xl shadow-xl border border-blue-100 max-w-md mx-auto">
-                <h1 class="text-2xl font-bold text-blue-700 text-center mb-6">Kunlik Kaloriya Me'yori</h1>
-                <div class="space-y-4 text-black">
-                    <input type="number" id="age-cal" placeholder="Yoshingiz" class="w-full p-4 rounded-xl border border-slate-200">
-                    <select id="gender-cal" class="w-full p-4 rounded-xl border border-slate-200">
+        <div id="calories-page" class="page text-black">
+            <div class="card-grad p-8 rounded-[2rem] shadow-xl border border-orange-50 max-w-md mx-auto">
+                <h1 class="text-2xl font-black text-orange-500 text-center mb-6 italic">KALORIYA ME'YORI</h1>
+                <div class="space-y-4">
+                    <input type="number" id="age-cal" placeholder="Yoshingiz" class="w-full p-4 rounded-2xl border border-slate-200">
+                    <select id="gender-cal" class="w-full p-4 rounded-2xl border border-slate-200 bg-white text-black">
                         <option value="male">Erkak</option>
                         <option value="female">Ayol</option>
                     </select>
-                    <input type="number" id="h-cal" placeholder="Bo'yingiz (sm)" class="w-full p-4 rounded-xl border border-slate-200">
-                    <input type="number" id="w-cal" placeholder="Vazningiz (kg)" class="w-full p-4 rounded-xl border border-slate-200">
-                    <button onclick="calcCal()" class="w-full bg-blue-600 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-blue-700 transition">HISOBLASH 🔥</button>
+                    <input type="number" id="h-cal" placeholder="Bo'yingiz (sm)" class="w-full p-4 rounded-2xl border border-slate-200">
+                    <input type="number" id="w-cal" placeholder="Vazningiz (kg)" class="w-full p-4 rounded-2xl border border-slate-200 text-black">
+                    </div>
+                <div id="res-cal" class="mt-6 text-center hidden p-6 bg-white rounded-3xl shadow-inner">
+                    <div class="text-4xl font-black text-orange-500" id="val-cal">0 kkal</div>
                 </div>
-                <div id="res-cal" class="mt-6 text-center hidden p-4 bg-blue-50 rounded-2xl">
-                    <div class="text-3xl font-black text-blue-600" id="val-cal">0 kkal</div>
-                    <p class="text-xs text-blue-800 mt-2">Sizga vazningizni saqlash uchun shuncha energiya kerak.</p>
+            </div>
+        </div>
+
+        <div id="water-page" class="page text-black">
+            <div class="card-grad p-8 rounded-[2rem] shadow-xl border border-cyan-50 max-w-md mx-auto">
+                <h1 class="text-2xl font-black text-cyan-500 text-center mb-6 italic">SUV ICHISH TARTIBI</h1>
+                <p class="text-center text-xs text-slate-400 mb-6 font-black uppercase">Vazningizni kiriting va suv me'yorini biling</p>
+                <div class="space-y-4">
+                    <input type="number" id="w-water" placeholder="Vazningiz (kg)" class="w-full p-4 rounded-2xl border border-slate-200 outline-none focus:ring-2 focus:ring-cyan-400 transition text-black">
+                    <button onclick="calcWater()" class="w-full bg-cyan-500 text-white font-black py-4 rounded-2xl shadow-lg hover:bg-cyan-600 transition transform active:scale-95 text-black">SUVNI HISOBLASH 💧</button>
                 </div>
-                <div id="info-page" class="page space-y-6">
-            <article class="bg-white p-6 rounded-2xl shadow-sm border-l-8 border-emerald-500">
-                <h2 class="text-xl font-bold mb-2">BMI nima va u nega kerak?</h2>
-                <p class="text-slate-600">BMI (Body Mass Index) — insonning bo'yi va vazni o'rtasidagi mutanosiblikni ko'rsatadigan xalqaro standartdir. U orqali siz sog'lig'ingiz uchun xavfli bo'lgan semizlik yoki o'ta ozg'inlik darajasini aniqlashingiz mumkin.</p>
-            </article>
+                <div id="res-water" class="mt-6 text-center hidden p-6 bg-white rounded-3xl shadow-inner">
+                    <div class="text-4xl font-black text-cyan-500" id="val-water text-black">0 Litr</div>
+                    <p class="text-sm font-bold text-slate-500 mt-2" id="glass-water text-black">0 stakan</p>
+                </div>
+            </div>
+        </div>
 
-            <article class="bg-white p-6 rounded-2xl shadow-sm border-l-8 border-blue-500 text-black">
-                <h2 class="text-xl font-bold mb-2 text-black">Sog'lom ozish sirlari</h2>
-                <p class="text-slate-600 text-black">Ozish uchun eng muhim qoida - kaloriya defitsiti. Ya'ni, siz tanangiz sarf qilayotgan kaloriyadan ko'ra kamroq energiya iste'mol qilishingiz kerak. Bizning kalkulyator sizga aynan shu chegarani aniqlashda yordam beradi.</p>
-            </article>
-
-            <article class="bg-white p-6 rounded-2xl shadow-sm border-l-8 border-purple-500">
-                <h2 class="text-xl font-bold mb-2">2026-yilning eng yaxshi onlayn instrumenti</h2>
-                <p class="text-slate-600">Ushbu platforma (SuperTool Uz) foydalanuvchilarga o'z salomatliklarini real vaqt rejimida bepul kuzatish imkonini beradi. Tezkor, aniq va xavfsiz!</p>
-            </article>
+        <div id="info-page" class="page space-y-4">
+            <div class="bg-white p-6 rounded-3xl shadow-md border-b-4 border-cyan-400">
+                <h2 class="font-black text-lg text-cyan-600 mb-2">💧 Nega suv ichish kerak?</h2>
+                <p class="text-sm text-slate-600 leading-relaxed text-black font-black">Suv metabolizmni tezlashtiradi, terini yoshartiradi va organizmni toksinlardan tozalaydi. Kunlik me'yorni saqlash orqali siz energiyaga boy bo'lasiz.</p>
+            </div>
+            <div class="bg-white p-6 rounded-3xl shadow-md border-b-4 border-blue-400">
+                <h2 class="font-black text-lg text-blue-600 mb-2">⚖️ Ideal vazn siri</h2>
+                <p class="text-sm text-slate-600 leading-relaxed text-black font-black">BMI 18.5 va 24.9 orasida bo'lishi - sog'lom hayot belgisi. Agar BMI yuqori bo'lsa, suv ichishni ko'paytirish va kaloriya me'yoriga amal qilish kerak.</p>
+            </div>
         </div>
 
     </main>
 
-    <footer class="text-center p-8 text-slate-400 text-xs mt-10">
-        &copy; 2026 SuperTool Uz - Sog'lom Hayot Sari
+    <footer class="text-center p-10 text-slate-300 text-[10px] font-bold uppercase tracking-widest">
+        &copy; 2026 SuperTool Uz - O'zbekistonda №1 Sog'liq Portali
     </footer>
 
     <script>
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
-            document.querySelectorAll('nav button').forEach(b => {
-                b.classList.remove('active-tab');
-                b.classList.add('text-slate-400');
+        function showPage(p) {
+            document.querySelectorAll('.page').forEach(el => el.classList.remove('active-page'));
+            document.querySelectorAll('nav button').forEach(el => {
+                el.classList.remove('active-tab');
+                el.classList.add('text-slate-400');
             });
-            
-            document.getElementById(pageId + '-page').classList.add('active-page');
-            document.getElementById(pageId + '-btn').classList.add('active-tab');
-            document.getElementById(pageId + '-btn').classList.remove('text-slate-400');
+            document.getElementById(p + '-page').classList.add('active-page');
+            document.getElementById(p + '-btn').classList.add('active-tab');
+            document.getElementById(p + '-btn').classList.remove('text-slate-400');
         }
 
         function calcBMI() {
             const h = document.getElementById('h-bmi').value;
             const w = document.getElementById('w-bmi').value;
-            if(h > 0 && w > 0) {
-                const val = (w / ((h/100) * (h/100))).toFixed(1);
-                document.getElementById('val-bmi').innerText = val;
-                let status = val < 18.5 ? "Ozg'in ⚠️" : val < 25 ? "Ideal! ✅" : "Ortiqcha vazn 🚨";
-                document.getElementById('status-bmi').innerText = status;
+            if(h>0 && w>0) {
+                const res = (w/((h/100)**2)).toFixed(1);
+                document.getElementById('val-bmi').innerText = res;
+                document.getElementById('status-bmi').innerText = res < 18.5 ? "OZG'IN 🦴" : res < 25 ? "IDEAL ✨" : "ORTIQCHA VAZN 🔥";
                 document.getElementById('res-bmi').classList.remove('hidden');
             }
         }
-
         function calcCal() {
             const age = document.getElementById('age-cal').value;
             const h = document.getElementById('h-cal').value;
             const w = document.getElementById('w-cal').value;
-            const gender = document.getElementById('gender-cal').value;
-
-            if(age > 0 && h > 0 && w > 0) {
-                // Mifflin-St Jeor formulasi
-                let bmr = (10 * w) + (6.25 * h) - (5 * age);
-                bmr = gender === 'male' ? bmr + 5 : bmr - 161;
+            const g = document.getElementById('gender-cal').value;
+            if(age>0 && h>0 && w>0) {
+                let bmr = (10*w) + (6.25*h) - (5*age) + (g==='male' ? 5 : -161);
                 document.getElementById('val-cal').innerText = Math.round(bmr) + " kkal";
                 document.getElementById('res-cal').classList.remove('hidden');
+            }
+        }
+
+        function calcWater() {
+            const w = document.getElementById('w-water').value;
+            if(w>0) {
+                const liters = (w * 0.033).toFixed(1);
+                const glasses = Math.round(liters / 0.25);
+                document.getElementById('val-water').innerText = liters + " Litr";
+                document.getElementById('glass-water').innerText = "Bu taxminan " + glasses + " stakan suv degani.";
+                document.getElementById('res-water').classList.remove('hidden');
             }
         }
     </script>
 </body>
 </html>
-            </div>
-        </div>
+                    <button onclick="calcCal()" class="w-full bg-orange-500 text-white font-black py-4 rounded-2xl shadow-lg hover:bg-orange-600 transition transform active:scale-95">HISОBLASH 🔥</button>
