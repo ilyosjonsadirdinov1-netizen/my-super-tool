@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuperTool - Barcha videolar yuklovchi va instrumentlar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <header class="gradient-bg text-white p-10 text-center shadow-lg">
+        <h1 class="text-4xl font-bold mb-2">🚀 SuperTool Uz</h1>
+        <p class="text-lg opacity-90">TikTok, Instagram va YouTube-dan videolarni bir zumda yuklang!</p>
+    </header>
+
+    <main class="max-w-4xl mx-auto p-6 -mt-10">
+        <div class="bg-white rounded-2xl shadow-2xl p-8">
+            <div class="flex flex-col space-y-4">
+                <label class="text-gray-700 font-semibold">Video havolasini (link) joylashtiring:</label>
+                <div class="flex flex-col sm:flex-row gap-2">
+                    <input type="text" id="urlInput" placeholder="https://www.instagram.com/p/..." 
+                           class="flex-1 p-4 border-2 border-purple-200 rounded-xl focus:outline-none focus:border-purple-500 transition">
+                    <button onclick="processVideo()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-4 px-8 rounded-xl transition transform hover:scale-105 active:scale-95">
+                        Yuklash ⚡️
+                    </button>
+                </div>
+                <p id="status" class="text-sm text-center text-gray-500 mt-2 italic"></p>
+            </div>
+
+            <div class="mt-10 border-2 border-dashed border-gray-300 h-32 flex items-center justify-center rounded-xl bg-gray-50 text-gray-400">
+                Bu yerda reklama bo'ladi (AdSense)
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-10">
+                <div class="p-4 border border-purple-100 rounded-xl bg-purple-50 hover:shadow-md transition cursor-pointer">
+                    <h3 class="font-bold text-purple-700">TikTok Downloader</h3>
+                    <p class="text-xs text-gray-600">Suv belgisiz yuklash (Watermark-free)</p>
+                </div>
+                <div class="p-4 border border-purple-100 rounded-xl bg-purple-50 hover:shadow-md transition cursor-pointer">
+                    <h3 class="font-bold text-purple-700">Image Compressor</h3>
+                    <p class="text-xs text-gray-600">Rasm sifatini buzmay kichraytirish</p>
+                </div>
+                <div class="p-4 border border-purple-100 rounded-xl bg-purple-50 hover:shadow-md transition cursor-pointer">
+                    <h3 class="font-bold text-purple-700">YouTube MP3</h3>
+                    <p class="text-xs text-gray-600">Videoni qo'shiqqa aylantirish</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center p-10 text-gray-500 text-sm">
+        &copy; 2026 SuperTool Uz. Barcha huquqlar himoyalangan.
+    </footer>
+
+    <script>
+        function processVideo() {
+            const url = document.getElementById('urlInput').value;
+            const status = document.getElementById('status');
+            if(url === "") {
+                status.innerText = "Iltimos, havolani kiriting!";
+                status.classList.add('text-red-500');
+            } else {
+                status.innerText = "Video qayta ishlanmoqda... (Backend ulanganidan keyin yuklash boshlanadi)";
+                status.classList.remove('text-red-500');
+                status.classList.add('text-blue-500');
+            }
+        }
+    </script>
+</body>
+</html>
